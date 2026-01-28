@@ -22,17 +22,17 @@ export function Hero() {
             
             <div className="max-w-[90vw] mb-12">
               <h1 className="text-display-xl font-display leading-[0.85] mb-4 tracking-tight" style={{ opacity: 1, transform: 'none' }}>
-                <span className="block text-white font-medium">Money,</span>
-                <span className="block gradient-text font-medium">Clarity.</span>
+                <span className="block text-foreground font-normal">Money,</span>
+                <span className="block gradient-text font-normal">Clarity.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-neutral-400 max-w-xl font-light leading-relaxed" style={{ opacity: 1, transform: 'none' }}>
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-xl font-light leading-relaxed" style={{ opacity: 1, transform: 'none' }}>
                 Your financial command center. Track everything, understand instantly, control effortlessly.
               </p>
             </div>
             
             <div className="flex flex-wrap items-center gap-6 mb-20" style={{ opacity: 1, transform: 'none' }}>
               <a href="/dashboard">
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-black font-semibold uppercase tracking-wider shadow-glow hover:shadow-[0_0_80px_hsl(38_95%_60%/0.4)] hover:scale-[1.02] active:scale-[0.98] border-2 border-primary h-16 px-12 text-lg rounded-xl group">
+                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground font-bold uppercase tracking-wider shadow-glow hover:shadow-[0_0_80px_hsl(40_96%_53%/0.4)] hover:scale-[1.02] active:scale-[0.98] border-2 border-primary h-14 px-8 text-base rounded-lg group">
                   Start Free
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
