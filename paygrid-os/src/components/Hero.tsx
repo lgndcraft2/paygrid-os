@@ -4,33 +4,35 @@ export function Hero() {
   return (
     <section className="relative min-h-[200vh]">
       <div className="sticky top-0 h-screen overflow-hidden">
-        <div className="absolute inset-0 mesh-gradient"></div>
-        <div className="absolute inset-0 noise-overlay"></div>
-        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(to right, rgb(245, 244, 240) 1px, transparent 1px), linear-gradient(rgb(245, 244, 240) 1px, transparent 1px)', backgroundSize: '80px 80px' }}></div>
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-primary/10 blur-[100px]" style={{ transform: 'translateY(200px)' }}></div>
-        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full bg-primary/5 blur-[80px]" style={{ transform: 'translateY(100px)' }}></div>
+        <div className="absolute inset-0 mesh-gradient opacity-80"></div>
+        <div className="absolute inset-0 noise-overlay opacity-30"></div>
+        
+        {/* Ambient Glow - Centered/Top Left warmth */}
+        <div className="absolute top-0 -left-20 w-[800px] h-[800px] rounded-full bg-primary/15 blur-[120px] mix-blend-screen pointer-events-none"></div>
+        
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(to right, rgb(245, 244, 240) 1px, transparent 1px), linear-gradient(rgb(245, 244, 240) 1px, transparent 1px)', backgroundSize: '80px 80px' }}></div>
         
         <div className="relative h-full">
           <div className="container h-full flex flex-col justify-center pt-20">
             <div className="mb-8" style={{ opacity: 1, transform: 'none' }}>
-              <span className="inline-flex items-center gap-3 text-sm text-muted-foreground uppercase tracking-[0.2em]">
+              <span className="inline-flex items-center gap-3 text-sm text-neutral-400 font-medium uppercase tracking-[0.2em]">
                 <span className="w-12 h-px bg-primary"></span>Financial Operating System
               </span>
             </div>
             
             <div className="max-w-[90vw] mb-12">
-              <h1 className="text-display-xl font-display leading-[0.85] mb-4" style={{ opacity: 1, transform: 'none' }}>
-                <span className="block">Money,</span>
-                <span className="block gradient-text">Clarity.</span>
+              <h1 className="text-display-xl font-display leading-[0.85] mb-4 tracking-tight" style={{ opacity: 1, transform: 'none' }}>
+                <span className="block text-white font-medium">Money,</span>
+                <span className="block gradient-text font-medium">Clarity.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-xl font-light leading-relaxed" style={{ opacity: 1, transform: 'none' }}>
+              <p className="text-xl md:text-2xl text-neutral-400 max-w-xl font-light leading-relaxed" style={{ opacity: 1, transform: 'none' }}>
                 Your financial command center. Track everything, understand instantly, control effortlessly.
               </p>
             </div>
             
             <div className="flex flex-wrap items-center gap-6 mb-20" style={{ opacity: 1, transform: 'none' }}>
               <a href="/dashboard">
-                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground font-semibold uppercase tracking-wider shadow-glow hover:shadow-[0_0_80px_hsl(38_95%_60%/0.4)] hover:scale-[1.02] active:scale-[0.98] border-2 border-primary h-16 px-12 text-lg rounded-xl group">
+                <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-black font-semibold uppercase tracking-wider shadow-glow hover:shadow-[0_0_80px_hsl(38_95%_60%/0.4)] hover:scale-[1.02] active:scale-[0.98] border-2 border-primary h-16 px-12 text-lg rounded-xl group">
                   Start Free
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
