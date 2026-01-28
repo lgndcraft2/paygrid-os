@@ -36,6 +36,15 @@
     --success: 142 76% 51%;
     --success-foreground: 240 5.9% 10%;
 
+    --sidebar-background: 20 6% 4%;
+    --sidebar-foreground: 36 21% 94%;
+    --sidebar-primary: 40 96% 53%;
+    --sidebar-primary-foreground: 22 8% 6%;
+    --sidebar-accent: 22 4% 12%;
+    --sidebar-accent-foreground: 36 21% 94%;
+    --sidebar-border: 22 4% 12%;
+    --sidebar-ring: 40 96% 53%;
+
     --radius: 0.75rem;
   }
 }
