@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Search, Bell, Filter, MoreHorizontal, FileText, CheckCircle2, AlertCircle, Clock, X } from 'lucide-react';
+import { Filter, MoreHorizontal, FileText, CheckCircle2, AlertCircle, Clock, X, ChevronRight, Activity, FileStack, StickyNote } from 'lucide-react';
+import { Header } from './Header';
 
 interface ActivePipelineProps {
   isSidebarCollapsed?: boolean;
@@ -16,6 +17,7 @@ const initialLeads = [
 
 export function ActivePipeline({ isSidebarCollapsed = false }: ActivePipelineProps) {
   const [selectedLead, setSelectedLead] = useState<any>(null);
+  const [showFullProfile, setShowFullProfile] = useState(false);
 
   const stages = [
     { id: 'audit', label: 'Audit', icon: FileText, color: 'bg-blue-500/10 text-blue-500 border-blue-500/20' },
@@ -28,34 +30,7 @@ export function ActivePipeline({ isSidebarCollapsed = false }: ActivePipelinePro
   };
 
   return (
-    <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarCollapsed ? 'ml-20' : 'ml-[280px]'}`}>
-      
-      {/* Header - consistent with other pages */}
-      <header className="sticky top-0 h-20 bg-background/80 backdrop-blur-xl border-b border-border flex items-center justify-between px-8 z-40">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input 
-              type="text" 
-              placeholder="Search leads..." 
-              className="h-11 pl-11 pr-4 rounded-xl bg-muted/50 border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 w-80 transition-all"
-            />
-          </div>
-        </div>
-        <div className="flex items-center gap-6">
-          <button className="relative p-2 rounded-xl hover:bg-muted transition-colors">
-            <Bell className="w-5 h-5 text-muted-foreground" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-background"></span>
-          </button>
-          <div className="flex items-center gap-4 pl-6 border-l border-border">
-             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center ring-2 ring-primary/20">
-              <span className="text-sm font-semibold text-primary">JD</span>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="p-8 h-[calc(100vh-80px)] overflow-hidden flex flex-col">
+      <div className="p-8 h-full md:overflow-hidden flex flex-col">
         <div className="flex items-center justify-between mb-8">
            <div>
               <h1 className="text-3xl font-display mb-2">Active Pipeline</h1>
@@ -68,9 +43,9 @@ export function ActivePipeline({ isSidebarCollapsed = false }: ActivePipelinePro
         </div>
 
         {/* Kanban Board */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
+        <div className="md:flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 md:overflow-hidden h-auto">
           {stages.map((stage) => (
-            <div key={stage.id} className="flex flex-col h-full bg-muted/10 rounded-2xl border border-border overflow-hidden">
+            <div key={stage.id} className="flex flex-col md:h-full h-auto bg-muted/10 rounded-2xl border border-border md:overflow-hidden">
               <div className={`p-4 border-b border-border flex items-center justify-between ${stage.color.replace('bg-', 'bg-opacity-20 ')}`}>
                  <div className="flex items-center gap-2">
                     {/* Replaced dynamic component usage for safety in this snippet, assuming standard icons */}
@@ -85,7 +60,7 @@ export function ActivePipeline({ isSidebarCollapsed = false }: ActivePipelinePro
                  <MoreHorizontal className="w-4 h-4 text-muted-foreground cursor-pointer" />
               </div>
               
-              <div className="p-4 flex-1 overflow-y-auto space-y-3 scrollbar-hide">
+              <div className="p-4 md:flex-1 md:overflow-y-auto h-auto space-y-3 scrollbar-hide">
                 {getLeadsByStage(stage.id).map((lead) => (
                   <div 
                     key={lead.id} 
@@ -127,10 +102,9 @@ export function ActivePipeline({ isSidebarCollapsed = false }: ActivePipelinePro
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Lead Details Modal */}
-      {selectedLead && (
+      {/* Lead Details Modal - Quick View */}
+      {selectedLead && !showFullProfile && (
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-card border border-border w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
              <div className="p-6 border-b border-border flex items-center justify-between">
@@ -177,10 +151,139 @@ export function ActivePipeline({ isSidebarCollapsed = false }: ActivePipelinePro
                    </div>
                 </div>
 
-                <button className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:brightness-110 transition-all">
+                <button 
+                  onClick={() => setShowFullProfile(true)}
+                  className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:brightness-110 transition-all flex items-center justify-center gap-2"
+                >
                    View Full Profile
+                   <ChevronRight className="w-4 h-4" />
                 </button>
              </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full Profile Slide-over */}
+      {selectedLead && showFullProfile && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
+          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => { setShowFullProfile(false); setSelectedLead(null); }} />
+          <div className="absolute inset-y-0 right-0 w-full max-w-2xl bg-card border-l border-border shadow-2xl transform transition-transform duration-300 ease-in-out animate-in slide-in-from-right h-full flex flex-col">
+            
+            {/* Slide-over Header */}
+            <div className="h-20 border-b border-border flex items-center justify-between px-6 bg-muted/10">
+               <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                      {selectedLead.name.split(' ').map((n: string) => n[0]).join('')}
+                  </div>
+                  <div>
+                      <h2 className="text-lg font-bold">{selectedLead.name}</h2>
+                      <p className="text-xs text-muted-foreground">{selectedLead.type} Loan</p>
+                  </div>
+               </div>
+               <div className="flex items-center gap-2">
+                 <button onClick={() => setShowFullProfile(false)} className="p-2 hover:bg-muted rounded-full text-muted-foreground">
+                    Back to Quick View
+                 </button>
+                 <button onClick={() => { setShowFullProfile(false); setSelectedLead(null); }} className="p-2 hover:bg-muted rounded-full">
+                    <X className="w-5 h-5" />
+                 </button>
+               </div>
+            </div>
+
+            {/* Slide-over Content */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-8">
+               
+               {/* Key Metrics */}
+               <div className="grid grid-cols-3 gap-4">
+                   <div className="p-4 rounded-xl bg-card border border-border">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Loan Potential</p>
+                      <p className="text-xl font-mono font-bold">${selectedLead.amount.toLocaleString()}</p>
+                   </div>
+                   <div className="p-4 rounded-xl bg-success/10 border border-success/20">
+                      <p className="text-xs text-success uppercase tracking-wider mb-1">Est. Commission</p>
+                      <p className="text-xl font-mono font-bold text-success">${(selectedLead.amount * 0.015).toLocaleString()}</p>
+                   </div>
+                   <div className="p-4 rounded-xl bg-card border border-border">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Credit Score</p>
+                      <div className="flex items-baseline gap-2">
+                         <span className="text-xl font-mono font-bold">{selectedLead.score_current}</span>
+                         <span className="text-xs text-success">+{selectedLead.score_current - selectedLead.score_start}</span>
+                      </div>
+                   </div>
+               </div>
+
+               {/* Tabs / Sections */}
+               <div className="space-y-6">
+                  
+                  <div className="space-y-4">
+                     <div className="flex items-center gap-2 text-lg font-semibold">
+                        <Activity className="w-5 h-5 text-primary" />
+                        <h3>Recent Activity</h3>
+                     </div>
+                     <div className="relative border-l-2 border-border ml-2.5 space-y-6 pl-6 pb-2">
+                        <div className="relative">
+                           <div className="absolute -left-[31px] w-4 h-4 rounded-full bg-primary border-4 border-background"></div>
+                           <p className="text-sm font-medium">Credit Score Updated</p>
+                           <p className="text-xs text-muted-foreground">Score increased by 15 points</p>
+                           <p className="text-xs text-muted-foreground mt-1">Today, 9:41 AM</p>
+                        </div>
+                        <div className="relative">
+                           <div className="absolute -left-[31px] w-4 h-4 rounded-full bg-muted border-4 border-background"></div>
+                           <p className="text-sm font-medium">Stage Changed</p>
+                           <p className="text-xs text-muted-foreground">Moved from Audit to Litigation</p>
+                           <p className="text-xs text-muted-foreground mt-1">Yesterday, 2:30 PM</p>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div className="space-y-4">
+                     <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-lg font-semibold">
+                           <FileStack className="w-5 h-5 text-primary" />
+                           <h3>Documents</h3>
+                        </div>
+                        <button className="text-xs bg-primary/10 text-primary px-3 py-1.5 rounded-lg hover:bg-primary/20 transition-colors font-medium">
+                           Upload
+                        </button>
+                     </div>
+                     <div className="grid grid-cols-2 gap-4">
+                        <div className="p-4 rounded-xl border border-border hover:border-primary/50 transition-colors cursor-pointer flex items-center gap-3">
+                           <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center">
+                              <FileText className="w-5 h-5 text-red-500" />
+                           </div>
+                           <div className="overflow-hidden">
+                              <p className="text-sm font-medium truncate">Credit_Report_Jan.pdf</p>
+                              <p className="text-xs text-muted-foreground">2.4 MB</p>
+                           </div>
+                        </div>
+                        <div className="p-4 rounded-xl border border-border hover:border-primary/50 transition-colors cursor-pointer flex items-center gap-3">
+                           <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                              <FileText className="w-5 h-5 text-blue-500" />
+                           </div>
+                           <div className="overflow-hidden">
+                              <p className="text-sm font-medium truncate">Pre_Approval_Letter.pdf</p>
+                              <p className="text-xs text-muted-foreground">1.1 MB</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div className="space-y-4">
+                     <div className="flex items-center gap-2 text-lg font-semibold">
+                        <StickyNote className="w-5 h-5 text-primary" />
+                        <h3>Notes</h3>
+                     </div>
+                     <textarea 
+                        className="w-full h-32 rounded-xl bg-muted/20 border border-border p-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
+                        placeholder="Add a note about this lead..."
+                     ></textarea>
+                     <button className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:brightness-110">
+                        Save Note
+                     </button>
+                  </div>
+
+               </div>
+            </div>
           </div>
         </div>
       )}

@@ -1,5 +1,6 @@
-import { Search, Bell, Plus, Wallet, TrendingUp, TrendingDown, CreditCard, ArrowUpRight, Ellipsis } from 'lucide-react';
+import { Plus, Wallet, TrendingUp, TrendingDown, CreditCard, ArrowUpRight, Ellipsis } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Header } from './Header';
 
 const dataCashflow = [
   { name: 'Jan', income: 4000, expenses: 2400 },
@@ -28,40 +29,6 @@ interface DashboardProps {
 
 export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
   return (
-    <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarCollapsed ? 'ml-20' : 'ml-[280px]'}`}>
-      {/* Header */}
-      <header className="sticky top-0 h-20 bg-background/80 backdrop-blur-xl border-b border-border flex items-center justify-between px-8 z-40">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input 
-              type="text" 
-              placeholder="Search transactions..." 
-              className="h-11 pl-11 pr-4 rounded-xl bg-muted/50 border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 w-80 transition-all"
-            />
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-xs text-muted-foreground">
-              <span className="text-lg">⌘</span>
-              <span>K</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center gap-6">
-          <button className="relative p-2 rounded-xl hover:bg-muted transition-colors">
-            <Bell className="w-5 h-5 text-muted-foreground" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-background"></span>
-          </button>
-          <div className="flex items-center gap-4 pl-6 border-l border-border">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center ring-2 ring-primary/20">
-              <span className="text-sm font-semibold text-primary">JD</span>
-            </div>
-            <div className="hidden sm:block">
-              <p className="text-sm font-medium">John Doe</p>
-              <p className="text-xs text-muted-foreground">Premium Plan</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <div className="p-8 space-y-8">
         {/* Welcome Section */}
         <div className="flex items-start justify-between">
@@ -313,7 +280,6 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

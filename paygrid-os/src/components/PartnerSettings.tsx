@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Search, Bell, Upload, BellRing, Smartphone, Mail, FileText, Video, Image as ImageIcon, Download, Check } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Upload, BellRing, Smartphone, Mail, FileText, Video, Image as ImageIcon, Download, Check } from 'lucide-react';
+import { Header } from './Header';
 
 interface PartnerSettingsProps {
   isSidebarCollapsed?: boolean;
@@ -13,6 +14,24 @@ export function PartnerSettings({ isSidebarCollapsed = false }: PartnerSettingsP
     weeklyReport: false,
   });
 
+  const [headshot, setHeadshot] = useState<string | null>(null);
+  const [logo, setLogo] = useState<string | null>(null);
+
+  const headshotInputRef = useRef<HTMLInputElement>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+
+  const handleHeadshotUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setHeadshot(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setLogo(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
   const toggleNotification = (key: keyof typeof notifications) => {
     setNotifications(prev => ({ ...prev, [key]: !prev[key] }));
   };
@@ -25,33 +44,6 @@ export function PartnerSettings({ isSidebarCollapsed = false }: PartnerSettingsP
   ];
 
   return (
-    <div className={`flex-1 transition-all duration-300 ease-in-out ${isSidebarCollapsed ? 'ml-20' : 'ml-[280px]'}`}>
-      
-      {/* Header */}
-      <header className="sticky top-0 h-20 bg-background/80 backdrop-blur-xl border-b border-border flex items-center justify-between px-8 z-40">
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-             <input 
-              type="text" 
-              placeholder="Search settings..." 
-              className="h-11 pl-11 pr-4 rounded-xl bg-muted/50 border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 w-80 transition-all"
-            />
-          </div>
-        </div>
-        <div className="flex items-center gap-6">
-          <button className="relative p-2 rounded-xl hover:bg-muted transition-colors">
-            <Bell className="w-5 h-5 text-muted-foreground" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-background"></span>
-          </button>
-           <div className="flex items-center gap-4 pl-6 border-l border-border">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center ring-2 ring-primary/20">
-              <span className="text-sm font-semibold text-primary">JD</span>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <div className="p-8 max-w-6xl mx-auto space-y-8">
         <div>
            <h1 className="text-3xl font-display mb-2">Partner Settings</h1>
@@ -75,24 +67,62 @@ export function PartnerSettings({ isSidebarCollapsed = false }: PartnerSettingsP
                  {/* Headshot Upload */}
                  <div className="space-y-3">
                     <label className="text-sm font-medium">Partner Headshot</label>
-                    <div className="border-2 border-dashed border-border hover:border-primary/50 rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-muted/5">
-                       <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3">
-                          <Upload className="w-5 h-5 text-muted-foreground" />
-                       </div>
-                       <p className="text-sm font-medium">Click to upload or drag and drop</p>
-                       <p className="text-xs text-muted-foreground mt-1">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                    <input 
+                      type="file" 
+                      ref={headshotInputRef} 
+                      className="hidden" 
+                      accept="image/*"
+                      onChange={handleHeadshotUpload}
+                    />
+                    <div 
+                      onClick={() => headshotInputRef.current?.click()}
+                      className="border-2 border-dashed border-border hover:border-primary/50 rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-muted/5 relative overflow-hidden group"
+                    >
+                       {headshot ? (
+                          <>
+                             <img src={headshot} alt="Headshot" className="w-24 h-24 rounded-full object-cover mb-3 z-10" />
+                             <p className="text-sm font-medium z-10">Click to change</p>
+                          </>
+                       ) : (
+                          <>
+                            <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3">
+                                <Upload className="w-5 h-5 text-muted-foreground" />
+                            </div>
+                            <p className="text-sm font-medium">Click to upload or drag and drop</p>
+                            <p className="text-xs text-muted-foreground mt-1">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                          </>
+                       )}
                     </div>
                  </div>
 
                  {/* Logo Upload */}
                  <div className="space-y-3">
                     <label className="text-sm font-medium">Company Logo</label>
-                    <div className="border-2 border-dashed border-border hover:border-primary/50 rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-muted/5">
-                       <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3">
-                          <Upload className="w-5 h-5 text-muted-foreground" />
-                       </div>
-                       <p className="text-sm font-medium">Click to upload or drag and drop</p>
-                       <p className="text-xs text-muted-foreground mt-1">Transparent PNG preferred</p>
+                    <input 
+                      type="file" 
+                      ref={logoInputRef} 
+                      className="hidden" 
+                      accept="image/*"
+                      onChange={handleLogoUpload}
+                    />
+                    <div 
+                      onClick={() => logoInputRef.current?.click()}
+                      className="border-2 border-dashed border-border hover:border-primary/50 rounded-xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-muted/5"
+                    >
+                       {logo ? (
+                          <>
+                             <img src={logo} alt="Logo" className="h-16 object-contain mb-3" />
+                             <p className="text-sm font-medium">Click to change</p>
+                          </>
+                       ) : (
+                          <>
+                            <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3">
+                                <Upload className="w-5 h-5 text-muted-foreground" />
+                            </div>
+                            <p className="text-sm font-medium">Click to upload or drag and drop</p>
+                            <p className="text-xs text-muted-foreground mt-1">Transparent PNG preferred</p>
+                          </>
+                       )}
                     </div>
                  </div>
               </div>
@@ -103,13 +133,15 @@ export function PartnerSettings({ isSidebarCollapsed = false }: PartnerSettingsP
                   <div className="bg-card rounded-lg shadow-sm border border-border p-6 max-w-sm mx-auto">
                      <div className="flex items-center justify-between mb-6 pb-4 border-b border-border/50">
                         <div className="flex items-center gap-2">
-                           <div className="w-8 h-8 rounded bg-primary/20"></div>
+                           <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center overflow-hidden">
+                              {logo ? <img src={logo} className="w-full h-full object-contain" /> : <span className="text-[10px]">Asoro</span>}
+                           </div>
                            <span className="font-semibold text-sm">Asoro</span>
                         </div>
                         <span className="text-muted-foreground text-xs">x</span>
                         <div className="flex items-center gap-2">
                             <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center overflow-hidden border border-border">
-                               <UserIcon className="w-4 h-4 text-muted-foreground" />
+                               {headshot ? <img src={headshot} className="w-full h-full object-cover" /> : <UserIcon className="w-4 h-4 text-muted-foreground" />}
                             </div>
                            <span className="font-semibold text-sm">John Doe</span>
                         </div>
@@ -182,7 +214,6 @@ export function PartnerSettings({ isSidebarCollapsed = false }: PartnerSettingsP
            </div>
         </section>
       </div>
-    </div>
   );
 }
 
