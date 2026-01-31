@@ -1,5 +1,5 @@
 import { Search, Bell, Plus, Wallet, TrendingUp, TrendingDown, CreditCard, ArrowUpRight, Sparkles, Ellipsis } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const dataCashflow = [
   { name: 'Jan', income: 4000, expenses: 2400 },
@@ -80,7 +80,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           {/* Card 1 */}
           <div className="brutal-card rounded-2xl p-6 group hover:border-primary/20 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">Total Balance</span>
+              <span className="text-sm text-muted-foreground uppercase tracking-wider">Total Recovered Volume</span>
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <Wallet className="w-5 h-5 text-primary" />
               </div>
@@ -94,7 +94,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           {/* Card 2 */}
           <div className="brutal-card rounded-2xl p-6 group hover:border-primary/20 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">Monthly Income</span>
+              <span className="text-sm text-muted-foreground uppercase tracking-wider">Recovered Revenue (MTD)</span>
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <TrendingUp className="w-5 h-5 text-primary" />
               </div>
@@ -108,7 +108,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           {/* Card 3 */}
           <div className="brutal-card rounded-2xl p-6 group hover:border-primary/20 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">Monthly Spending</span>
+              <span className="text-sm text-muted-foreground uppercase tracking-wider">Active Repair Pipeline</span>
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <TrendingDown className="w-5 h-5 text-primary" />
               </div>
@@ -122,7 +122,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           {/* Card 4 */}
           <div className="brutal-card rounded-2xl p-6 group hover:border-primary/20 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">Daily Limit</span>
+              <span className="text-sm text-muted-foreground uppercase tracking-wider">Clear to Close</span>
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <CreditCard className="w-5 h-5 text-primary" />
               </div>
@@ -138,15 +138,15 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
         {/* Middle Section: Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Chart */}
-          <div className="lg:col-span-2 brutal-card rounded-2xl p-6">
+          {/* <div className="lg:col-span-2 brutal-card rounded-2xl p-6">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-lg font-semibold">Cashflow Overview</h3>
-                <p className="text-sm text-muted-foreground">Income vs Expenses</p>
+                <h3 className="text-lg font-semibold">Total Pipeline Volume</h3>
+                <p className="text-sm text-muted-foreground">Recovered vs Standard</p>
               </div>
               <div className="flex items-center gap-6 text-sm">
-                <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-primary"></span>Income</span>
-                <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-muted-foreground"></span>Expenses</span>
+                <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-primary"></span>Recovered</span>
+                <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-muted-foreground"></span>Standard</span>
               </div>
             </div>
             <div className="h-72">
@@ -169,12 +169,41 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
                 </AreaChart>
               </ResponsiveContainer>
             </div>
+          </div> */}
+
+          <div className="lg:col-span-2 brutal-card rounded-2xl p-6">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h3 className="text-lg font-semibold">Total Pipeline Volume</h3>
+              <p className="text-sm text-muted-foreground">Recovered vs Standard</p>
+            </div>
+            <div className="flex items-center gap-6 text-sm">
+              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-primary"></span>Recovered</span>
+              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-muted-foreground"></span>Standard</span>
+            </div>
           </div>
+          <div className="h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={dataCashflow}>
+                <XAxis dataKey="name" stroke="hsl(220 8% 50%)" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="hsl(220 8% 50%)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${value/1000}k`} />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
+                  itemStyle={{ color: 'hsl(var(--foreground))' }}
+                  cursor={{fill: 'transparent'}}
+                />
+                <Bar dataKey="income" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="expenses" fill="hsl(220 8% 50%)" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
 
           {/* Pie Chart */}
           <div className="brutal-card rounded-2xl p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">Spending</h3>
+              <h3 className="text-lg font-semibold">Lead Conversion Breakdown</h3>
               <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-300 hover:bg-foreground/5 rounded-lg h-8 w-8">
                 <Ellipsis className="w-4 h-4" />
               </button>
@@ -217,7 +246,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 brutal-card rounded-2xl p-6">
              <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold">Recent Transactions</h3>
+              <h3 className="text-lg font-semibold">Status Logs: Active Files</h3>
               <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-300 hover:bg-foreground/5 h-9 px-4 text-xs rounded-md text-primary">
                 View All <ArrowUpRight className="w-4 h-4 ml-1" />
               </button>
@@ -235,7 +264,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
              {/* Accounts */}
             <div className="brutal-card rounded-2xl p-6">
                <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Accounts</h3>
+                <h3 className="text-lg font-semibold">LO Performance</h3>
                 <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-300 hover:bg-foreground/5 rounded-lg h-8 w-8">
                   <Plus className="w-4 h-4" />
                 </button>
@@ -269,8 +298,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
             <div className="brutal-card rounded-2xl p-6">
                <div className="flex items-center justify-between mb-4">
                  <div className="flex items-center gap-2">
-                  <h3 className="text-lg font-semibold">Goals</h3>
-                  <Sparkles className="w-4 h-4 text-primary" />
+                  <h3 className="text-lg font-semibold">Revenue Pull-Through</h3>
                  </div>
                  <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-300 hover:bg-foreground/5 rounded-lg h-8 w-8">
                   <Plus className="w-4 h-4" />

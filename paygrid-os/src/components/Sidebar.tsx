@@ -3,16 +3,18 @@ import { LayoutDashboard, Wallet, ArrowLeftRight, ChartPie, Target, FileText, Se
 interface SidebarProps {
   isCollapsed: boolean;
   toggleSidebar: () => void;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
-export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
+export function Sidebar({ isCollapsed, toggleSidebar, activeTab, setActiveTab }: SidebarProps) {
   const menuItems = [
-    { icon: LayoutDashboard, label: "Dashboard", active: true },
-    { icon: Wallet, label: "Accounts", active: false },
-    { icon: ArrowLeftRight, label: "Transactions", active: false },
-    { icon: ChartPie, label: "Budgets", active: false },
-    { icon: Target, label: "Goals", active: false },
-    { icon: FileText, label: "Reports", active: false },
+    { icon: LayoutDashboard, label: "Dashboard", id: 'dashboard' },
+    // { icon: Wallet, label: "Accounts", id: 'accounts' },
+    { icon: ArrowLeftRight, label: "Active Pipeline", id: 'pipeline' },
+    { icon: ChartPie, label: "Budgets", id: 'budgets' },
+    { icon: Target, label: "Revenue Recovery", id: 'goals' },
+    { icon: FileText, label: "Reports", id: 'reports' },
   ];
 
   return (
@@ -31,8 +33,9 @@ export function Sidebar({ isCollapsed, toggleSidebar }: SidebarProps) {
           {menuItems.map((item) => (
             <li key={item.label}>
               <button 
+                onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center justify-start px-4 gap-3 py-3 rounded-xl text-sm transition-all duration-200 overflow-hidden whitespace-nowrap ${
-                  item.active 
+                  activeTab === item.id
                     ? "bg-primary/10 text-primary border border-primary/20" 
                     : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 }`}
