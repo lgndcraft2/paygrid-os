@@ -50,9 +50,16 @@ export function Sidebar({ isCollapsed, toggleSidebar, activeTab, setActiveTab }:
       </nav>
 
       <div className="p-3 border-t border-sidebar-border space-y-1">
-        <button className={`w-full flex items-center justify-start px-4 gap-3 py-3 rounded-xl text-sm text-sidebar-foreground hover:bg-sidebar-accent transition-colors overflow-hidden whitespace-nowrap`}>
+        <button 
+          onClick={() => setActiveTab('settings')}
+          className={`w-full flex items-center justify-start px-4 gap-3 py-3 rounded-xl text-sm overflow-hidden whitespace-nowrap transition-colors ${
+            activeTab === 'settings'
+              ? "bg-primary/10 text-primary border border-primary/20" 
+              : "text-sidebar-foreground hover:bg-sidebar-accent"
+          }`}
+        >
           <Settings className="w-5 h-5 shrink-0" />
-          <span className={`transition-all duration-200 ${isCollapsed ? 'opacity-0 w-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>Settings</span>
+          <span className={`transition-all duration-200 ${isCollapsed ? 'opacity-0 w-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>Partner Branding</span>
         </button>
         <button 
           onClick={toggleSidebar}
