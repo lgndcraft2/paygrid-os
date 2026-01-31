@@ -1,4 +1,4 @@
-import { Search, Bell, Sparkles } from 'lucide-react';
+import { Search, Bell } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 interface RevenueRecoveryProps {
@@ -95,7 +95,7 @@ export function RevenueRecovery({ isSidebarCollapsed = false }: RevenueRecoveryP
                      <Tooltip 
                         cursor={{fill: 'transparent'}} 
                         contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
-                        formatter={(value: number) => [`$${value.toLocaleString()}`, '']}
+                        formatter={(value: any) => [`$${value.toLocaleString()}`, '']}
                      />
                      <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={40} background={{ fill: 'hsl(var(--muted)/0.1)' }}>
                         <Cell fill="hsl(var(--muted-foreground))" /> 

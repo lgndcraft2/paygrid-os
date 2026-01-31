@@ -1,4 +1,4 @@
-import { LayoutDashboard, Wallet, ArrowLeftRight, ChartPie, Target, FileText, Settings, ChevronLeft } from 'lucide-react';
+import { LayoutDashboard, ArrowLeftRight, ChartPie, Target, FileText, Settings, ChevronLeft } from 'lucide-react';
 
 interface SidebarProps {
   isCollapsed: boolean;

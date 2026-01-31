@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Bell, Filter, MoreHorizontal, User, DollarSign, FileText, CheckCircle2, AlertCircle, Clock, X } from 'lucide-react';
+import { Search, Bell, Filter, MoreHorizontal, FileText, CheckCircle2, AlertCircle, Clock, X } from 'lucide-react';
 
 interface ActivePipelineProps {
   isSidebarCollapsed?: boolean;

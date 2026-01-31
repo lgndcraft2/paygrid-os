@@ -1,4 +1,4 @@
-import { Search, Bell, Plus, Wallet, TrendingUp, TrendingDown, CreditCard, ArrowUpRight, Sparkles, Ellipsis } from 'lucide-react';
+import { Search, Bell, Plus, Wallet, TrendingUp, TrendingDown, CreditCard, ArrowUpRight, Ellipsis } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const dataCashflow = [
