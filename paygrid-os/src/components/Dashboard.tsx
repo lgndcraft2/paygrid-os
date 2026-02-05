@@ -1,6 +1,5 @@
 import { Plus, Wallet, TrendingUp, TrendingDown, CreditCard, ArrowUpRight, Ellipsis } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { Header } from './Header';
 
 const dataCashflow = [
   { name: 'Jan', income: 4000, expenses: 2400 },
@@ -27,13 +26,13 @@ interface DashboardProps {
   isSidebarCollapsed?: boolean;
 }
 
-export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
+export function Dashboard({ }: DashboardProps) {
   return (
-      <div className="p-8 space-y-8">
+      <div className="p-4 md:p-8 space-y-6 md:space-y-8">
         {/* Welcome Section */}
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col md:flex-row items-start md:justify-between gap-4 md:gap-0">
           <div>
-            <h1 className="text-3xl font-display mb-2">Good morning, <span className="gradient-text">John</span></h1>
+            <h1 className="text-2xl md:text-3xl font-display mb-2">Good morning, <span className="gradient-text">John</span></h1>
             <p className="text-muted-foreground">Here's your financial overview for today.</p>
           </div>
           <button className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:brightness-110 shadow-glow-sm hover:shadow-glow h-11 px-6 text-sm rounded-lg gap-2">
@@ -47,7 +46,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           {/* Card 1 */}
           <div className="brutal-card rounded-2xl p-6 group hover:border-primary/20 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">Total Recovered Volume</span>
+              <span className="text-sm text-muted-foreground uppercase tracking-wider">Total Ecosystem Value</span>
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <Wallet className="w-5 h-5 text-primary" />
               </div>
@@ -61,7 +60,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           {/* Card 2 */}
           <div className="brutal-card rounded-2xl p-6 group hover:border-primary/20 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">Recovered Revenue (MTD)</span>
+              <span className="text-sm text-muted-foreground uppercase tracking-wider">Your Commissions (MTD)</span>
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <TrendingUp className="w-5 h-5 text-primary" />
               </div>
@@ -75,92 +74,60 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           {/* Card 3 */}
           <div className="brutal-card rounded-2xl p-6 group hover:border-primary/20 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">Active Repair Pipeline</span>
+              <span className="text-sm text-muted-foreground uppercase tracking-wider">Clients in Repair</span>
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <TrendingDown className="w-5 h-5 text-primary" />
               </div>
             </div>
-            <p className="text-3xl font-bold font-mono mb-2">$3,520.00</p>
+            <p className="text-3xl font-bold font-mono mb-2">42</p>
             <div className="flex items-center gap-2 text-sm text-success">
               <TrendingUp className="w-4 h-4" />
-              <span>-5.2% from last month</span>
+              <span>+6 new clients</span>
             </div>
           </div>
           {/* Card 4 */}
           <div className="brutal-card rounded-2xl p-6 group hover:border-primary/20 transition-all duration-300">
             <div className="flex items-start justify-between mb-4">
-              <span className="text-sm text-muted-foreground uppercase tracking-wider">Clear to Close</span>
+              <span className="text-sm text-muted-foreground uppercase tracking-wider">Ready to Fund</span>
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all">
                 <CreditCard className="w-5 h-5 text-primary" />
               </div>
             </div>
-            <p className="text-3xl font-bold font-mono mb-2">$180.00</p>
-            <p className="text-sm text-muted-foreground">$70 remaining today</p>
+            <p className="text-3xl font-bold font-mono mb-2">3</p>
+            <p className="text-sm text-muted-foreground">Waiting for contract</p>
             <div className="mt-4 h-2 bg-muted rounded-full overflow-hidden">
               <div className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full" style={{ width: '72%' }}></div>
             </div>
+
           </div>
         </div>
 
         {/* Middle Section: Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Chart */}
-          {/* <div className="lg:col-span-2 brutal-card rounded-2xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-lg font-semibold">Total Pipeline Volume</h3>
-                <p className="text-sm text-muted-foreground">Recovered vs Standard</p>
-              </div>
-              <div className="flex items-center gap-6 text-sm">
-                <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-primary"></span>Recovered</span>
-                <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-muted-foreground"></span>Standard</span>
-              </div>
-            </div>
-            <div className="h-72">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={dataCashflow}>
-                  <defs>
-                    <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="name" stroke="hsl(220 8% 50%)" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="hsl(220 8% 50%)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${value/1000}k`} />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
-                    itemStyle={{ color: 'hsl(var(--foreground))' }}
-                  />
-                  <Area type="monotone" dataKey="income" stroke="hsl(var(--primary))" strokeWidth={2} fillOpacity={1} fill="url(#incomeGradient)" />
-                  <Area type="monotone" dataKey="expenses" stroke="hsl(220 8% 50%)" strokeWidth={2} strokeDasharray="5 5" fill="transparent" />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </div> */}
-
           <div className="lg:col-span-2 brutal-card rounded-2xl p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-lg font-semibold">Total Pipeline Volume</h3>
-              <p className="text-sm text-muted-foreground">Recovered vs Standard</p>
+              <h3 className="text-lg font-semibold">Target / Calculator</h3>
+              <p className="text-sm text-muted-foreground">Standard (Yellow) vs Actual Sent (Blue)</p>
             </div>
             <div className="flex items-center gap-6 text-sm">
-              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-primary"></span>Recovered</span>
-              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-muted-foreground"></span>Standard</span>
+              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-primary"></span>Actual Sent</span>
+              <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-yellow-500"></span>Standard</span>
             </div>
           </div>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={dataCashflow}>
                 <XAxis dataKey="name" stroke="hsl(220 8% 50%)" fontSize={12} tickLine={false} axisLine={false} />
-                <YAxis stroke="hsl(220 8% 50%)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${value/1000}k`} />
+                <YAxis stroke="hsl(220 8% 50%)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value/100}`} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
                   itemStyle={{ color: 'hsl(var(--foreground))' }}
                   cursor={{fill: 'transparent'}}
                 />
-                <Bar dataKey="income" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="expenses" fill="hsl(220 8% 50%)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="income" name="Actual Sent" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="expenses" name="Standard" fill="#eab308" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -170,7 +137,7 @@ export function Dashboard({ isSidebarCollapsed = false }: DashboardProps) {
           {/* Pie Chart */}
           <div className="brutal-card rounded-2xl p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">Lead Conversion Breakdown</h3>
+              <h3 className="text-lg font-semibold">Payout Projections</h3>
               <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all duration-300 hover:bg-foreground/5 rounded-lg h-8 w-8">
                 <Ellipsis className="w-4 h-4" />
               </button>

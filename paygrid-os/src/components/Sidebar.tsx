@@ -9,12 +9,12 @@ interface SidebarProps {
 
 export function Sidebar({ isCollapsed, toggleSidebar, activeTab, setActiveTab }: SidebarProps) {
   const menuItems = [
-    { icon: LayoutDashboard, label: "Dashboard", id: 'dashboard' },
+    { icon: LayoutDashboard, label: "Partner Command", id: 'dashboard' },
     // { icon: Wallet, label: "Accounts", id: 'accounts' },
-    { icon: ArrowLeftRight, label: "Active Pipeline", id: 'pipeline' },
-    { icon: ChartPie, label: "Budgets", id: 'budgets' },
-    { icon: Target, label: "Revenue Recovery", id: 'goals' },
-    { icon: FileText, label: "Reports", id: 'reports' },
+    { icon: ArrowLeftRight, label: "Active Leads", id: 'pipeline' },
+    { icon: ChartPie, label: "Refi Graduates", id: 'budgets' },
+    { icon: Target, label: "Commission Vault", id: 'goals' },
+    { icon: FileText, label: "Payout Projections", id: 'reports' },
   ];
 
   return (
@@ -48,6 +48,17 @@ export function Sidebar({ isCollapsed, toggleSidebar, activeTab, setActiveTab }:
           ))}
         </ul>
       </nav>
+
+      {/* Priority Support Button */}
+      <div className="px-3 pb-3">
+         <button 
+           className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-medium bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-glow-sm hover:shadow-glow hover:scale-[1.02] transition-all duration-300"
+           title="Priority Support"
+         >
+           <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+           <span className={`${isCollapsed ? 'hidden' : 'block'}`}>Priority Support</span>
+         </button>
+      </div>
 
       <div className="p-3 border-t border-sidebar-border space-y-1">
         <button 

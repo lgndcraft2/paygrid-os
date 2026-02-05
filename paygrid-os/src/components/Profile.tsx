@@ -1,10 +1,10 @@
-import { User, Mail, Phone, MapPin, Building, Award, Calendar } from 'lucide-react';
+import { Mail, Phone, MapPin, Building, Award } from 'lucide-react';
 
 export function Profile() {
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-8">
+    <div className="p-4 md:p-8 max-w-4xl mx-auto space-y-6 md:space-y-8">
        <div>
-          <h1 className="text-3xl font-display mb-2">My Profile</h1>
+          <h1 className="text-2xl md:text-3xl font-display mb-2">My Profile</h1>
           <p className="text-muted-foreground">Manage your account settings and personal information.</p>
        </div>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Bell, User, Settings, LogOut, CheckCircle2 } from 'lucide-react';
+import { Search, Bell, User, Settings, LogOut } from 'lucide-react';
 
 interface HeaderProps {
     onNavigate?: (tab: string) => void;
@@ -10,7 +10,7 @@ export function Header({ onNavigate }: HeaderProps) {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 h-20 bg-background/80 backdrop-blur-xl border-b border-border flex items-center justify-between px-8 z-40">
+    <header className="sticky top-0 h-20 bg-background/80 backdrop-blur-xl border-b border-border flex items-center justify-between px-4 md:px-8 z-40">
       <div className="flex items-center gap-3">
         <div className="relative hidden md:block">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />

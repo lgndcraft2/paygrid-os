@@ -1,12 +1,11 @@
 import { useState, useRef } from 'react';
 import { Upload, BellRing, Smartphone, Mail, FileText, Video, Image as ImageIcon, Download, Check } from 'lucide-react';
-import { Header } from './Header';
 
 interface PartnerSettingsProps {
   isSidebarCollapsed?: boolean;
 }
 
-export function PartnerSettings({ isSidebarCollapsed = false }: PartnerSettingsProps) {
+export function PartnerSettings({ }: PartnerSettingsProps) {
   const [notifications, setNotifications] = useState({
     scoreHit620: true,
     auditComplete: true,
@@ -44,17 +43,17 @@ export function PartnerSettings({ isSidebarCollapsed = false }: PartnerSettingsP
   ];
 
   return (
-      <div className="p-8 max-w-6xl mx-auto space-y-8">
+      <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-6 md:space-y-8">
         <div>
-           <h1 className="text-3xl font-display mb-2">Partner Settings</h1>
+           <h1 className="text-2xl md:text-3xl font-display mb-2">Partner Settings</h1>
            <p className="text-muted-foreground">Customize your branding and notification preferences.</p>
         </div>
 
         {/* Co-Branding Hub */}
-        <section className="brutal-card rounded-2xl p-8">
-           <div className="flex items-start justify-between mb-8">
+        <section className="brutal-card rounded-2xl p-4 md:p-8">
+           <div className="flex flex-col md:flex-row items-start justify-between mb-6 md:mb-8 gap-4 md:gap-0">
               <div>
-                 <h2 className="text-xl font-semibold mb-2">Co-Branding Hub</h2>
+                 <h2 className="text-lg md:text-xl font-semibold mb-2">Co-Branding Hub</h2>
                  <p className="text-sm text-muted-foreground">Upload your assets to co-brand client communications as "Asoro x [Your Name]".</p>
               </div>
               <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">

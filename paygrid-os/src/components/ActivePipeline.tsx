@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Filter, MoreHorizontal, FileText, CheckCircle2, AlertCircle, Clock, X, ChevronRight, Activity, FileStack, StickyNote } from 'lucide-react';
-import { Header } from './Header';
 
 interface ActivePipelineProps {
   isSidebarCollapsed?: boolean;
@@ -15,7 +14,7 @@ const initialLeads = [
   { id: 5, name: 'Ethan Hunt', stage: 'audit', amount: 600000, type: 'Jumbo', score_start: 640, score_current: 640, days_in_stage: 1 },
 ];
 
-export function ActivePipeline({ isSidebarCollapsed = false }: ActivePipelineProps) {
+export function ActivePipeline({ }: ActivePipelineProps) {
   const [selectedLead, setSelectedLead] = useState<any>(null);
   const [showFullProfile, setShowFullProfile] = useState(false);
 
@@ -30,11 +29,11 @@ export function ActivePipeline({ isSidebarCollapsed = false }: ActivePipelinePro
   };
 
   return (
-      <div className="p-8 h-full md:overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between mb-8">
+      <div className="p-4 md:p-8 h-full md:overflow-hidden flex flex-col">
+        <div className="flex flex-col md:flex-row items-center justify-between mb-6 md:mb-8 gap-4 md:gap-0">
            <div>
-              <h1 className="text-3xl font-display mb-2">Active Pipeline</h1>
-              <p className="text-muted-foreground">Track leads moving towards closing.</p>
+              <h1 className="text-2xl md:text-3xl font-display mb-2">Active Leads</h1>
+              <p className="text-muted-foreground">Detailed client timeline and document storage.</p>
            </div>
            <button className="flex items-center gap-2 px-4 py-2 bg-muted/50 hover:bg-muted rounded-lg text-sm font-medium transition-colors">
              <Filter className="w-4 h-4" />

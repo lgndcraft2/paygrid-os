@@ -1,16 +1,15 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import { Header } from './Header';
 
 interface RevenueRecoveryProps {
   isSidebarCollapsed?: boolean;
 }
 
-export function RevenueRecovery({ isSidebarCollapsed = false }: RevenueRecoveryProps) {
+export function RevenueRecovery({ }: RevenueRecoveryProps) {
   return (
-      <div className="p-8 space-y-8">
-        <div className="flex items-center justify-between">
+      <div className="p-4 md:p-8 space-y-6 md:space-y-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
            <div>
-              <h1 className="text-3xl font-display mb-2">Revenue Recovery</h1>
+              <h1 className="text-2xl md:text-3xl font-display mb-2">Commission Vault</h1>
               <p className="text-muted-foreground">Track your recovered loans and commission ROI.</p>
            </div>
         </div>
